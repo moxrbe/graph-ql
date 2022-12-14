@@ -1,12 +1,32 @@
-import { Checkbox, Text, CloseButton, HStack } from "@chakra-ui/react";
-
-const TodoItem = ({ id, title, completed }) => {
+import { Checkbox, Text, CloseButton } from "@chakra-ui/react";
+import "./style.scss";
+const TodoItem = ({ id, title, completed, onToggle, onDelete }) => {
   return (
-    <HStack spacing={3}>
-      <Checkbox isChecked={completed} />
+    <div className="item">
+      <div>
+        <Checkbox
+          isChecked={completed}
+          onChange={() =>
+            onToggle({
+              variables: {
+                id,
+                completed: !completed,
+              },
+            })
+          }
+        />
+      </div>
       <Text>{title}</Text>
-      <CloseButton />
-    </HStack>
+      <CloseButton
+        onClick={() =>
+          onDelete({
+            variables: {
+              id,
+            },
+          })
+        }
+      />
+    </div>
   );
 };
 
